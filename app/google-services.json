@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "962345522106",
+    "firebase_url": "https://firestoreexampleprojectcif.firebaseio.com",
+    "project_id": "firestoreexampleprojectcif",
+    "storage_bucket": "firestoreexampleprojectcif.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962345522106:android:084173c795702aef",
+        "android_client_info": {
+          "package_name": "dragon.bakuman.iu.firestoreexampleprojectcif"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "962345522106-0ss8ipbiknug21rea1gvrv29rq7dl3vd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dragon.bakuman.iu.firestoreexampleprojectcif",
+            "certificate_hash": "12fb8aeff6dafc00932b64c7ae6207f6aaa2f2e8"
+          }
+        },
+        {
+          "client_id": "962345522106-fjv3pvpu5l2n6faoqutqc9mdq95jhdu9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeI3Z6ashuiISYSoyBJwZOFPaNE4wNGOA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "962345522106-fjv3pvpu5l2n6faoqutqc9mdq95jhdu9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
