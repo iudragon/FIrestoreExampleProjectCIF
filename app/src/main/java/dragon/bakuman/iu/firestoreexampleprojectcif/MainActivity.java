@@ -1,25 +1,21 @@
 package dragon.bakuman.iu.firestoreexampleprojectcif;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import javax.annotation.Nullable;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -50,6 +46,34 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        notebookRef.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if (e != null){
+
+                    return; //due to return we dont execute whatever comes below it
+                }
+
+                String data = "";
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                    Note note = documentSnapshot.toObject(Note.class);
+                    note.setDocumentId(documentSnapshot.getId());
+
+                    String documentId = note.getDocumentId();
+
+                    String title = note.getTitle();
+                    String description = note.getDescription();
+
+                    data += "ID: " + documentId + "\nTItle: " + title + "\nDescription: " + description + "\n\n";
+
+                }
+
+                textViewData.setText(data);
+
+            }
+        });
+
     }
 
     public void addNote(View v) {
@@ -76,11 +100,14 @@ public class MainActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
 
                             Note note = documentSnapshot.toObject(Note.class);
+                            note.setDocumentId(documentSnapshot.getId());
+
+                            String documentId = note.getDocumentId();
 
                             String title = note.getTitle();
                             String description = note.getDescription();
 
-                            data += "TItle: " + title + "\nDescription: " + description + "\n\n";
+                            data += "ID: " + documentId + "\nTItle: " + title + "\nDescription: " + description + "\n\n";
 
                         }
                         textViewData.setText(data);
