@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -62,11 +63,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //addSnapshotListener returns the ListenerRegistration
-        /*noteListener*/ noteRef.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+        /*noteListener*/
+        noteRef.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
-                if (e != null){
+                if (e != null) {
                     Toast.makeText(MainActivity.this, "Error while loading", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "onEvent: " + e.toString());
                     return; //leave this method if there wasn't exception
@@ -79,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
 
                     mTextViewData.setText("Title: " + title + "\n" + "Description: " + description);
 
+                } else { //added else method after noteRef.delete in deleteNote method! because now documentSnapshot does not exists
+
+                    mTextViewData.setText("");
 
                 }
             }
@@ -178,8 +183,26 @@ public class MainActivity extends AppCompatActivity {
         note.put(KEY_DESCRIPTION, description);
 
         noteRef.set(note, SetOptions.merge());*/
-       noteRef.update(KEY_DESCRIPTION, description);
+        noteRef.update(KEY_DESCRIPTION, description);
 
+
+    }
+
+    public void deleteDescription(View view) {
+
+        /*Map<String, Object> note = new HashMap<>();
+        note.put(KEY_DESCRIPTION, FieldValue.delete());
+
+        noteRef.update(note);*/
+
+        noteRef.update(KEY_DESCRIPTION, FieldValue.delete()); // we could also add.onFailureListener or .OnSuccessListener after update method
+
+
+    }
+
+    public void deleteNote(View view) {
+
+        noteRef.delete();
 
     }
 }
